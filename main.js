@@ -127,6 +127,106 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- 4. REPORT ISSUE BUBBLE + PANEL ---
+    const reportBubble = document.createElement('button');
+    reportBubble.className = 'report-bubble';
+    reportBubble.type = 'button';
+    reportBubble.textContent = 'Report an issue';
+    reportBubble.setAttribute('aria-label', 'Report a problem');
+
+    const reportOverlay = document.createElement('div');
+    reportOverlay.className = 'report-overlay';
+    reportOverlay.innerHTML = `
+      <div class="report-panel glass">
+        <div class="report-panel-header">
+          <h3>Report an issue</h3>
+          <button type="button" class="report-close" aria-label="Close report form">×</button>
+        </div>
+        <form class="report-form">
+          <label for="report-name">Your name</label>
+          <input type="text" id="report-name" name="name" placeholder="e.g., Alex Smith" required>
+
+          <label for="report-email">Email</label>
+          <input type="email" id="report-email" name="email" placeholder="you@example.com" required>
+
+          <label for="report-subject">Subject</label>
+          <input type="text" id="report-subject" name="subject" placeholder="Broken link on Bookings page" required>
+
+          <label for="report-message">What happened?</label>
+          <textarea id="report-message" name="message" rows="4" placeholder="Describe the issue..." required></textarea>
+
+          <div class="report-actions">
+            <button type="submit" class="cta-button">Send report</button>
+            <button type="button" class="cta-button cta-button-secondary report-cancel">Cancel</button>
+          </div>
+          <p class="report-note">Automatically includes this page: <span class="report-url"></span></p>
+        </form>
+      </div>
+    `;
+
+    const reportUrlSpan = reportOverlay.querySelector('.report-url');
+    if (reportUrlSpan) reportUrlSpan.textContent = window.location.href;
+
+    const closeReport = () => {
+      reportOverlay.classList.remove('active');
+    };
+
+    reportBubble.addEventListener('click', () => {
+      reportOverlay.classList.add('active');
+      const subjectInput = reportOverlay.querySelector('#report-subject');
+      if (subjectInput) subjectInput.focus();
+    });
+
+    reportOverlay.querySelector('.report-close')?.addEventListener('click', closeReport);
+    reportOverlay.querySelector('.report-cancel')?.addEventListener('click', closeReport);
+    reportOverlay.addEventListener('click', (e) => {
+      if (e.target === reportOverlay) closeReport();
+    });
+
+    const reportForm = reportOverlay.querySelector('.report-form');
+    if (reportForm) {
+      reportForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = reportForm.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        const name = reportForm.querySelector('#report-name').value.trim();
+        const email = reportForm.querySelector('#report-email').value.trim();
+        const subject = reportForm.querySelector('#report-subject').value.trim();
+        const message = reportForm.querySelector('#report-message').value.trim();
+        const pageUrl = window.location.href;
+
+        const payload = {
+          name,
+          email,
+          subject,
+          service: 'Website Issue',
+          message: `${subject}\n\n${message}\n\nPage: ${pageUrl}`,
+          kind: 'report'
+        };
+
+        try {
+          const result = await handleFormSubmit("https://booking-handler.techprokelowna.workers.dev", payload);
+          showModal("Report sent", `Thanks for flagging this. Reference: ${result.ticketId}`);
+          reportForm.reset();
+          if (reportUrlSpan) reportUrlSpan.textContent = window.location.href;
+          closeReport();
+        } catch (error) {
+          console.error("Report Error:", error);
+          const title = error.isServerError ? "Send Error" : "Connection Error";
+          const msg = error.isServerError ? error.message : "Could not send right now. Please try again.";
+          showModal(title, msg, true);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send report';
+        }
+      });
+    }
+
+    document.body.appendChild(reportBubble);
+    document.body.appendChild(reportOverlay);
+
     // --- 5. ADMIN LOGIN EASTER EGG ---
     const statusLogo = document.querySelector('.status-logo');
     if (statusLogo) {

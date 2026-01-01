@@ -23,31 +23,74 @@
             <li class="nav-item"><a href="/status" class="nav-link track-status">Track Repair</a></li>
             <li class="nav-item"><a href="/bookings" class="nav-link nav-cta active-link">Book a Repair</a></li>
         </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
     </nav>
 </header>
 
 <main class="page-content">
     <h1>Book a Repair or Consultation</h1>
     <p>Need help with your device? Schedule an appointment with one of our expert technicians.</p>
-   
-    <form id="bookingForm" class="booking-form">
-        <label for="booking-name">Full Name:</label>
-        <input type="text" id="booking-name" name="name" required>
-        <label for="booking-email">Email:</label>
-        <input type="email" id="booking-email" name="email" required>
-        <label for="service-type">Service Type:</label>
-        <select id="service-type" name="service" required>
-            <option value="">--Please choose an option--</option>
-            <option value="repair">Device Repair</option>
-            <option value="consultation">Tech Consultation</option>
-            <option value="setup">New Device Setup</option>
-        </select>
-        <label for="booking-date">Preferred Date:</label>
-        <input type="date" id="booking-date" name="date" required min="2024-01-01">
-        <label for="problem">Describe the Issue:</label>
-        <textarea id="booking-problem" name="message" rows="5" required></textarea>
-        <button type="submit" id="submitBooking">Request Booking</button>
-    </form>
+
+    <div class="contact-container" style="margin-top: 1.5rem;">
+        <div class="contact-info">
+            <h2>How booking works</h2>
+            <p>We review your request, follow up with any questions, then confirm a visit window.</p>
+            <p><strong>Hours:</strong><br>Daily: 10:30am–5:00pm • Emergency support by request.</p>
+            <p><strong>Service areas:</strong><br>Kelowna, West Kelowna, Lake Country, and nearby.</p>
+            <p><strong>Best way to reach us:</strong><br>Call for urgent issues or onsite requests. Use this form for quotes, follow-ups, and scheduling.</p>
+        </div>
+
+        <form id="bookingForm" class="contact-form booking-form">
+            <h2>Request a visit</h2>
+            <label for="booking-name">Full Name:</label>
+            <input type="text" id="booking-name" name="name" placeholder="e.g., Alex Smith" required>
+
+            <label for="booking-email">Email:</label>
+            <input type="email" id="booking-email" name="email" placeholder="e.g., alex@example.com" required>
+
+            <label for="service-type">Service Type:</label>
+            <select id="service-type" name="service" required>
+                <option value="">--Please choose an option--</option>
+                <option value="repair">Computer repair or speed-up</option>
+                <option value="malware">Virus or scam cleanup</option>
+                <option value="wifi">Wi‑Fi or networking help</option>
+                <option value="backup">Backup or data recovery</option>
+                <option value="setup">New device or smart TV setup</option>
+                <option value="consultation">One-on-one tech coaching</option>
+            </select>
+
+            <label for="booking-date">Preferred Date:</label>
+            <input type="date" id="booking-date" name="date" required min="2024-01-01">
+
+            <label for="problem">Describe the Issue:</label>
+            <textarea id="booking-problem" name="message" rows="5" placeholder="What happened, symptoms, and your setup..." required></textarea>
+
+            <button type="submit" id="submitBooking">Request Booking</button>
+        </form>
+    </div>
+
+    <section class="section-heading" style="margin-top: 1.5rem;">
+        <h2>Quick steps</h2>
+        <p>Share the basics, pick a date that works, and we will lock it in.</p>
+    </section>
+    <ol class="steps-list">
+        <li>Tell us about the issue and your preferred service type.</li>
+        <li>Pick a date that works for you.</li>
+        <li>We confirm details and send a booking update.</li>
+    </ol>
+
+    <div class="cta-container" style="margin-top: 2rem;">
+        <h2>Not sure what to choose?</h2>
+        <p>Tell us the symptoms. We will recommend the right service and confirm before starting.</p>
+        <div class="cta-buttons-wrapper">
+            <a href="/services" class="cta-button">See services</a>
+            <a href="tel:+1-250-448-5500" class="cta-button cta-button-secondary">Call (250) 448-5500</a>
+        </div>
+    </div>
 </main>
 
 <!-- Custom Modal -->

@@ -7,7 +7,7 @@
 :root {
     --primary-color: #fecb2f; /* A vibrant, friendly yellow */
     --primary-hover-color: #eab92d; /* A slightly darker yellow for hover */
-    --dark-color: #393d41; /* A neutral, dark gray */
+    --dark-color: #2f3441; /* Matches the gray tone from the logo */
     --light-color: #ecf0f1; /* A very light gray for backgrounds */
     --white-color: #ffffff;
     --text-color: #434649;
@@ -30,6 +30,10 @@ body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     background-color: var(--dark-color); /* Dark Gray Blue background */
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.05), transparent 28%),
+        radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.04), transparent 25%),
+        linear-gradient(135deg, #282d38 0%, #222733 100%);
     color: var(--light-color); /* Default text is now light for readability */
 }
 
@@ -138,7 +142,7 @@ main {
     border-radius: var(--border-radius);
     margin-bottom: 2rem;
     /* --- Background Image with Overlay --- */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/AdobeStock_732698247_preview.jpeg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/AdobeStock_732698247_Preview.jpeg');
     background-size: cover; /* Ensures the image covers the whole section */
     background-position: center; /* Centers the image */
     position: relative; /* Needed for potential pseudo-elements if desired */
@@ -384,6 +388,17 @@ main {
     margin-top: 0.25rem;
 }
 
+.steps-list {
+    margin: 0 0 1.5rem 1.25rem;
+    color: rgba(236, 240, 241, 0.95);
+    display: grid;
+    gap: 0.35rem;
+}
+
+.steps-list li {
+    padding-left: 0.25rem;
+}
+
 /* Testimonials Section */
 .testimonials-section {
     text-align: center;
@@ -627,9 +642,9 @@ main {
     border: 2px solid #ddd;
     border-radius: var(--border-radius);
     font-size: 1rem;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--light-color);
-    transition: border-color 0.3s ease;
+    background-color: #fdfaf2;
+    color: var(--dark-color);
+    transition: border-color 0.3s ease, box-shadow 0.2s ease;
 }
 
 .contact-form input:focus,
@@ -639,6 +654,7 @@ main {
 .booking-form select:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(254, 203, 47, 0.25);
 }
 
 .contact-form button, .booking-form button {
@@ -699,8 +715,42 @@ main {
     gap: 1rem;
 }
 .status-form input {
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 12px 14px;
+    color: var(--dark-color);
+    background-color: #fdfaf2;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     text-transform: uppercase;
     text-align: center;
+}
+.status-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(254, 203, 47, 0.35);
+}
+.status-form button {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover-color));
+    color: var(--dark-color);
+    border: none;
+    padding: 12px 14px;
+    border-radius: var(--border-radius);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+.status-form button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    filter: brightness(1.02);
+}
+.status-form button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 .status-result {
     display: none; /* Initially hidden */
@@ -719,6 +769,116 @@ main {
 .status-timestamp {
     font-size: 0.8rem;
     opacity: 0.7;
+}
+
+.report-bubble {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 1200;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover-color));
+    color: var(--dark-color);
+    padding: 12px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.report-bubble:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.28);
+    filter: brightness(1.03);
+}
+
+.report-bubble:active {
+    transform: translateY(0);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+}
+
+.report-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: none;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 1.25rem;
+    z-index: 1300;
+}
+
+.report-overlay.active {
+    display: flex;
+}
+
+.report-panel {
+    width: min(420px, 100%);
+    background: var(--glass-bg-strong);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+}
+
+.report-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.report-panel-header h3 {
+    margin: 0;
+}
+
+.report-close {
+    background: transparent;
+    border: none;
+    color: var(--light-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.report-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.report-form label {
+    font-weight: 600;
+}
+
+.report-form input,
+.report-form textarea {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    background-color: #fdfaf2;
+    color: var(--dark-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.report-form input:focus,
+.report-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(254, 203, 47, 0.25);
+}
+
+.report-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.report-note {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-top: 0.25rem;
 }
 
 /* Social Media Links in Footer */
