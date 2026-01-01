@@ -7,10 +7,10 @@
 :root {
     --primary-color: #fecb2f; /* A vibrant, friendly yellow */
     --primary-hover-color: #eab92d; /* A slightly darker yellow for hover */
-    --dark-color: #2c3e50; /* A deep, soft charcoal instead of pure black */
+    --dark-color: #393d41; /* A neutral, dark gray */
     --light-color: #ecf0f1; /* A very light gray for backgrounds */
     --white-color: #ffffff;
-    --text-color: #34495e;
+    --text-color: #434649;
     --border-radius: 8px;
     /* Frosted glass variables */
     --glass-bg: rgba(254, 203, 47, 0.15); /* Yellow tinted glass */

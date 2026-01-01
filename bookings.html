@@ -9,6 +9,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book a Repair - Tech Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -43,9 +46,9 @@
             <option value="setup">New Device Setup</option>
         </select>
         <label for="booking-date">Preferred Date:</label>
-        <input type="date" id="booking-date" name="date" required>
+        <input type="date" id="booking-date" name="date" required min="2024-01-01">
         <label for="problem">Describe the Issue:</label>
-        <textarea id="booking-problem" name="problem" rows="5" required></textarea>
+        <textarea id="booking-problem" name="message" rows="5" required></textarea>
         <button type="submit" id="submitBooking">Request Booking</button>
     </form>
 </main>
