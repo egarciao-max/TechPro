@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (clickCount === 4) {
-                window.location.href = 'admin-kelowna-tp-92x1.html'; // Redirect to the admin page
+                window.location.href = '/admin-kelowna-tp-92x1'; // Redirect to the admin page
             }
 
             // Set a timer to reset the click count after 2 seconds of inactivity
