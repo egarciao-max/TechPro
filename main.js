@@ -1,3 +1,4 @@
+const API_URL = "https://booking-handler.techprokelowna.workers.dev";
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- 0. MODAL LOGIC ---
