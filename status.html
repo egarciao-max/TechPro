@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Tech Pro Kelowna</title>
+    
+    <link rel="icon" type="image/png" href="images/Yellow on Dark Blue.png">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Repair - Tech Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">
+            <img src="images/Yellow on Dark Blue.png" alt="Tech Pro Logo">
+        </a>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="status.html" class="nav-link active-link">Track Repair</a></li>
+            <li class="nav-item"><a href="bookings.html" class="nav-link nav-cta">Book a Repair</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="page-content">
+    <div class="status-checker-container">
+        <img src="images/Yellow on Dark Blue.png" alt="Tech Pro Logo" class="status-logo">
+        <h1 class="status-title">Check Repair Status</h1>
+        <p>Enter your Ticket ID to see the latest update on your device.</p>
+        <div class="status-form">
+            <input type="text" id="publicTicketId" placeholder="TPK-123456">
+            <button onclick="checkStatus()">Check Status</button>
+        </div>
+        <div id="pubResult" class="status-result">
+            <p><strong>Status:</strong> <strong id="resStatus"></strong></p>
+            <p class="status-timestamp">Last Updated: <span id="resDate"></span></p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Tech Pro. All rights reserved.</p>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

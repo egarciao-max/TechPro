@@ -1,0 +1,642 @@
+/* css/style.css */
+
+/* Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* CSS Variables for a consistent theme */
+:root {
+    --primary-color: #fecb2f; /* A vibrant, friendly yellow */
+    --primary-hover-color: #eab92d; /* A slightly darker yellow for hover */
+    --dark-color: #2c3e50; /* A deep, soft charcoal instead of pure black */
+    --light-color: #ecf0f1; /* A very light gray for backgrounds */
+    --white-color: #ffffff;
+    --text-color: #34495e;
+    --border-radius: 8px;
+    /* Frosted glass variables */
+    --glass-bg: rgba(254, 203, 47, 0.15); /* Yellow tinted glass */
+    --glass-bg-strong: rgba(254, 203, 47, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.1); /* A lighter border for contrast */
+    --glass-shadow: rgba(2,6,23,0.55);
+}
+
+/* Basic Reset & Body Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background-color: var(--dark-color); /* Dark Gray Blue background */
+    color: var(--light-color); /* Default text is now light for readability */
+}
+
+/* Header and Navigation */
+.navbar {
+    position: fixed; /* Keeps the dock in place on scroll */
+    top: 1rem; /* Creates space from the top of the viewport */
+    left: 50%; /* Centers the dock horizontally */
+    transform: translateX(-50%); /* Corrects the centering */
+    width: auto; /* Allows the dock to size based on its content */
+    z-index: 1000; /* Ensures it stays on top of other content */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem; /* Adds space between the logo and the menu */
+    padding: 0.75rem 1.5rem; /* Adjusted padding for the new shape */
+    border-radius: 50px; /* Creates the highly rounded "pill" shape */
+
+    /* --- Light Yellow Dock --- */
+    background-color: #fffde7; /* Solid light yellow */
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Generic frosted glass container */
+.frosted,
+.glass {
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%); 
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    color: inherit;
+}
+
+.nav-logo {
+    display: flex; /* Helps with vertical alignment */
+    align-items: center;
+    flex-shrink: 0; /* Prevents the logo from shrinking */
+}
+
+.nav-logo img {
+    height: 60px; /* Controls the size of the logo */
+    width: auto; /* Maintains aspect ratio */
+    display: block; /* Removes any extra space below the image */
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    align-items: center; /* Vertically aligns menu items */
+    flex-shrink: 0; /* Prevents the menu from shrinking and wrapping */
+}
+
+.nav-item {
+    margin-left: 1.5rem;
+    white-space: nowrap; /* Ensures link text never wraps */
+}
+
+.nav-link {
+    color: var(--dark-color);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    padding: 5px 0;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+/* Hamburger Menu Icon */
+.hamburger {
+    display: none; /* Hidden by default on desktop */
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--dark-color);
+}
+
+/* Animate Hamburger to 'X' */
+.hamburger.active .bar:nth-child(2) { opacity: 0; }
+.hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Main Content & Hero Section */
+main {
+    max-width: 1200px; /* This will now need a top margin/padding */
+    margin: 0 auto;
+    padding: 2rem; /* Default padding for all main elements */
+}
+
+.hero {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: var(--white-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    /* --- Background Image with Overlay --- */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/AdobeStock_732698247_preview.jpeg');
+    background-size: cover; /* Ensures the image covers the whole section */
+    background-position: center; /* Centers the image */
+    position: relative; /* Needed for potential pseudo-elements if desired */
+    color: var(--white-color); /* Keep text white on the image */
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: var(--primary-hover-color);
+    transform: translateY(-2px);
+}
+
+/* Services Section */
+.services-section {
+    text-align: center;
+}
+
+.services-section h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    text-align: left;
+}
+
+.service-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    color: var(--light-color);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+.service-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.service-card p {
+    flex-grow: 1; /* Makes the description take up available space */
+    margin-bottom: 1.5rem;
+}
+
+.service-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.service-button:hover {
+    background-color: var(--primary-hover-color);
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.testimonials-section h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border-left: 5px solid var(--primary-color);
+    padding: 2rem;
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    text-align: left;
+}
+
+.testimonial-stars {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+}
+
+.testimonial-card blockquote {
+    font-style: italic;
+    color: var(--light-color);
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.testimonial-card blockquote::before {
+    content: '“';
+    position: absolute;
+    left: -5px;
+    top: -10px;
+    font-size: 3rem;
+    color: var(--primary-color);
+    opacity: 0.5;
+}
+
+.testimonial-card footer {
+    font-weight: 600;
+    color: var(--light-color);
+    text-align: right;
+}
+
+/* Generic Page Content (for About, Contact, Bookings) */
+.page-content {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    padding: 140px 2rem 2rem; /* Adds top padding to push content below the nav bar */
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    color: var(--light-color);
+}
+.page-content h1 {
+    margin-bottom: 1.5rem;
+}
+
+/* About Page Specific Layout */
+.about-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.about-text {
+    flex: 1; /* Takes up available space */
+}
+
+.about-image {
+    flex: 1;
+    max-width: 50%; /* Prevents image from being too large */
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+
+/* Full Service List on Services Page */
+.full-service-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.service-item {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border-left: 5px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-item:hover {
+    transform: translateX(5px);
+    box-shadow: 3px 3px 15px rgba(0,0,0,0.05);
+}
+
+.service-item h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--light-color);
+}
+
+.cta-container {
+    text-align: center;
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    color: var(--light-color);
+}
+
+.cta-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.cta-container p {
+    font-size: 1.3rem;
+}
+
+.cta-buttons-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.cta-or-text {
+    font-weight: 600;
+    margin: 0;
+}
+
+.cta-button.cta-button-secondary {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.cta-button.cta-button-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+}
+/* Forms (Contact & Bookings) */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+.contact-info p {
+    margin-bottom: 1rem;
+}
+.contact-info a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.contact-info a:hover {
+    color: var(--primary-hover-color);
+}
+
+
+.contact-form, .booking-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form label, .booking-form label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea,
+.booking-form input,
+.booking-form textarea,
+.booking-form select {
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--light-color);
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.booking-form input:focus,
+.booking-form textarea:focus,
+.booking-form select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.contact-form button, .booking-form button {
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover, .booking-form button:hover {
+    background-color: var(--primary-hover-color);
+}
+
+/* Specific styles for the standalone contact page form */
+#contact-form {
+    gap: 1rem;
+}
+
+#contact-form p {
+    margin-bottom: 0.5rem;
+}
+
+#form-status {
+    margin-top: 10px;
+    text-align: center;
+    min-height: 1.2em;
+    font-weight: normal;
+    transition: color 0.3s ease;
+}
+
+.contact-info h2, .contact-form h2 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+/* Status Page Styles */
+.status-checker-container {
+    text-align: center;
+}
+.status-logo {
+    height: 150px;
+    margin-bottom: 1.5rem;
+}
+.status-title {
+    color: var(--primary-color);
+}
+.status-form {
+    margin-top: 1.5rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.status-form input {
+    text-transform: uppercase;
+    text-align: center;
+}
+.status-result {
+    display: none; /* Initially hidden */
+    margin-top: 2rem;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(0,0,0,0.2);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+.status-result #resStatus {
+    color: var(--primary-color);
+}
+.status-timestamp {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+    background: transparent;
+    color: var(--light-color);
+}
+
+/* --- Custom Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    padding: 2rem;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+}
+.modal-content h3 {
+    margin-bottom: 1rem;
+}
+.modal-content p {
+    margin-bottom: 1.5rem;
+}
+
+/* --- Responsive Styles for Mobile --- */
+@media (max-width: 768px) {
+    /* --- Hamburger Menu Activation --- */
+    .hamburger {
+        display: block; /* Show hamburger on mobile */
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%; /* Start off-screen */
+        top: 0;
+        flex-direction: column;
+        background-color: var(--dark-color);
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+        transition: 0.3s;
+        padding-top: 5rem;
+    }
+
+    .nav-menu.active {
+        left: 0; /* Slide in */
+    }
+
+    .nav-item {
+        margin: 2rem 0;
+    }
+
+    .nav-link {
+        font-size: 1.2rem;
+        color: var(--light-color); /* White text for dark mobile menu */
+    }
+
+    /* Adjust dock for smaller screens */
+    .navbar {
+        width: 90%; /* Make dock wider on mobile */
+    }
+
+    .nav-logo img {
+        height: 45px; /* Make the logo smaller */
+    }
+
+    .hero h1 {
+        font-size: 2.5rem; /* Make hero title smaller on mobile */
+    }
+
+    /* Stack contact info and form on mobile */
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+}
+.active-link {
+    background-color: var(--primary-color);
+    color: var(--dark-color) !important;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.active-link:hover {
+    background-color: var(--primary-hover-color);
+}

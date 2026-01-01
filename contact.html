@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Tech Pro Kelowna</title>
+    
+    <link rel="icon" type="image/png" href="images/Yellow on Dark Blue.png">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Tech Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="nav-logo">
+                <img src="images/Yellow on Dark Blue.png" alt="Tech Pro Logo">
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link active-link">Contact</a></li>
+                <li class="nav-item"><a href="status.html" class="nav-link track-status">Track Repair</a></li>
+                <li class="nav-item"><a href="bookings.html" class="nav-link nav-cta">Book a Repair</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="page-content">
+        <h1>Contact Us</h1>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Our Details</h2>
+                <p>Feel free to reach out to us directly through any of the channels below. We're here to help!</p>
+                <p><strong>Phone:</strong> <a href="tel:+1-250-448-5500">(250) 448-5500</a></p>
+                <p><strong>Email:</strong> <a href="mailto:info@techprokelowna.com">info@techprokelowna.com</a></p>
+                <p><strong>Location:</strong><br>1133 Sutherland Ave<br>Kelowna, BC, V1Y 5Y2<br>Canada</p>
+            </div>
+            <form id="contactForm" class="contact-form">
+                <h2>Send a Message</h2>
+                <label for="contact-name">Full Name</label>
+                <input type="text" id="contact-name" name="name" placeholder="e.g., Jane Doe" required>
+                <label for="contact-email">Email Address</label>
+                <input type="email" id="contact-email" name="email" placeholder="e.g., jane.doe@example.com" required>
+                <label for="contact-message">Your Message</label>
+                <textarea id="contact-message" name="message" placeholder="Please describe your issue or question here..." rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Custom Modal for feedback -->
+    <div id="customModal" class="modal-overlay">
+        <div class="modal-content glass">
+            <h3 id="modalTitle"></h3>
+            <p id="modalMessage"></p>
+            <button id="modalCloseBtn" class="cta-button">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tech Pro. All rights reserved.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal | Tech Pro Kelowna</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .view { display: none; }
+        .view.active { display: block; }
+        .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; color: white; background: rgba(0,0,0,0.2); }
+        .admin-table th, .admin-table td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        
+        /* Styled Dropdown */
+        .status-select {
+            background: #333;
+            color: #fecb2f;
+            border: 1px solid #fecb2f;
+            padding: 5px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .status-select:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .staff-tag { background: rgba(254, 203, 47, 0.15); border: 1px solid #fecb2f; padding: 5px 12px; border-radius: 20px; margin: 5px; display: inline-flex; align-items: center; }
+        .remove-staff { margin-left: 10px; color: #ff4444; cursor: pointer; }
+
+        /* Visual feedback for status updates */
+        .status-select.success { border-color: #28a745; background-color: rgba(40, 167, 69, 0.2); }
+        .status-select.error { border-color: #dc3545; background-color: rgba(220, 53, 69, 0.2); }
+        .status-select { transition: border-color 0.3s, background-color 0.3s; }
+
+    </style>
+</head>
+<body>
+
+<main>
+    <div id="adminLogin" class="view active">
+        <section class="page-content glass" style="max-width: 400px; margin: 100px auto; text-align: center;">
+            <h2 style="color:#fecb2f;">Staff Login</h2>
+            <div class="contact-form">
+                <input type="email" id="email" placeholder="Authorized Email">
+                <input type="password" id="pass" placeholder="Passcode">
+                <p id="loginStatus" style="color: #ff6b6b; font-weight: bold; min-height: 1.2em;"></p>
+                <button onclick="login()">Enter Dashboard</button>
+            </div>
+        </section>
+    </div>
+
+    <div id="adminDashboard" class="view">
+        <section class="page-content glass" style="max-width: 1000px; margin: 20px auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="color:#fecb2f;">Repair Manager</h2>
+                <button onclick="location.reload()" style="background:#ff4444; padding: 5px 10px;">Logout</button>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Status Selection</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody id="ticketBody"></tbody>
+            </table>
+        </section>
+
+        <section class="page-content glass" style="max-width: 600px; margin: 20px auto; text-align: center;">
+            <h3 style="color:#fecb2f;">Authorized Staff</h3>
+            <div id="staffList"></div>
+            <div class="contact-form" style="display:flex; gap:10px; margin-top:15px;">
+                <input type="email" id="newStaffEmail" placeholder="Add Email" style="margin:0;">
+                <button onclick="addStaff()">Add</button>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script>
+    const API = "https://booking-handler.techprokelowna.workers.dev";
+    let whitelist = [];
+
+    // Shortcut: Ctrl+Shift+A
+    document.addEventListener('keydown', e => {
+        if (e.ctrlKey && e.shiftKey && e.code === 'KeyA') {
+            const current = document.querySelector('.view.active').id;
+            showView(current === 'adminLogin' ? 'adminDashboard' : 'adminLogin');
+        }
+    });
+
+    function showView(id) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        const target = document.getElementById(id);
+        if(target) target.classList.add('active');
+    }
+
+    async function login() {
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('pass').value;
+        const loginStatus = document.getElementById('loginStatus');
+        loginStatus.textContent = ""; // Clear previous errors
+
+        try {
+            const res = await fetch(`${API}?passcode=${pass}&email=${email}`);
+            if (res.ok) {
+                const data = await res.json();
+                whitelist = data.whitelist;
+                renderTable(data.tickets);
+                renderStaff();
+                showView('adminDashboard');
+            } else { 
+                loginStatus.textContent = "Login Failed. Check email/passcode.";
+            }
+        } catch (e) { 
+            loginStatus.textContent = "Server connection error.";
+        }
+    }
+
+    function renderTable(tickets) {
+        const body = document.getElementById('ticketBody');
+        const statuses = ["Received", "In Progress", "Waiting for Parts", "Ready for Pickup", "Completed"];
+        
+        body.innerHTML = tickets.map(t => `
+            <tr>
+                <td><strong>${t.id}</strong></td>
+                <td>${t.name}</td>
+                <td>
+                    <select class="status-select" onchange="updateStatus('${t.id}', this.value)">
+                        ${statuses.map(s => `<option value="${s}" ${t.status === s ? 'selected' : ''}>${s}</option>`).join('')}
+                    </select>
+                </td>
+                <td style="font-size:0.7rem; opacity:0.6;">${new Date(t.lastUpdate).toLocaleString()}</td>
+            </tr>
+        `).join('');
+    }
+
+    async function updateStatus(id, newStatus) {
+        const selectElement = event.target;
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('pass').value;
+
+        selectElement.disabled = true; // Disable dropdown during update
+
+        try {
+            const res = await fetch(API, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, newStatus, passcode: pass, email })
+            });
+
+            const result = await res.json();
+
+            if (res.ok) {
+                selectElement.classList.add('success');
+                if (result.action === 'deleted') {
+                    selectElement.closest('tr').style.opacity = '0';
+                    setTimeout(() => selectElement.closest('tr').remove(), 500);
+                }
+            } else {
+                throw new Error("Update failed");
+            }
+        } catch (error) {
+            selectElement.classList.add('error');
+        } finally {
+            setTimeout(() => {
+                selectElement.classList.remove('success', 'error');
+                selectElement.disabled = false;
+            }, 1500); // Reset visual feedback after 1.5 seconds
+        }
+    }
+
+    // Staff Management
+    function renderStaff() {
+        document.getElementById('staffList').innerHTML = whitelist.map(e => `
+            <span class="staff-tag">${e}<span class="remove-staff" onclick="removeStaff('${e}')">✕</span></span>
+        `).join('');
+    }
+
+    async function addStaff() {
+        const input = document.getElementById('newStaffEmail');
+        if(!input.value || whitelist.includes(input.value)) return;
+        whitelist.push(input.value);
+        await syncStaff();
+        input.value = "";
+    }
+
+    async function removeStaff(email) {
+        if(whitelist.length <= 1) return;
+        whitelist = whitelist.filter(e => e !== email);
+        await syncStaff();
+    }
+
+    async function syncStaff() {
+        const pass = document.getElementById('pass').value;
+        const email = document.getElementById('email').value; // Pass the admin's email for authentication
+        await fetch(API, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: "updateWhitelist", newList: whitelist, passcode: pass, email: email })
+        });
+        renderStaff();
+    }
+</script>
+</body>
+</html>
