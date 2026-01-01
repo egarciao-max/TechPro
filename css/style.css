@@ -214,6 +214,39 @@ main {
     margin-bottom: 1.5rem;
 }
 
+.service-details {
+    list-style: disc;
+    padding-left: 1.2rem;
+    margin: 0 0 1rem;
+    color: rgba(236, 240, 241, 0.9);
+}
+
+.service-details li {
+    margin-bottom: 0.45rem;
+}
+
+.service-meta {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--light-color);
+}
+
+.service-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.link-inline {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link-inline:hover {
+    color: var(--primary-hover-color);
+}
+
 .service-button {
     display: inline-block;
     background-color: var(--primary-color);
@@ -228,6 +261,127 @@ main {
 
 .service-button:hover {
     background-color: var(--primary-hover-color);
+}
+
+/* Trust and proof */
+.trust-section {
+    margin-top: 3rem;
+}
+
+.trust-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 1.25rem;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    color: var(--light-color);
+}
+
+.testimonial-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.testimonial {
+    background: var(--glass-bg);
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.25rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.testimonial-meta {
+    font-weight: 600;
+    color: rgba(236, 240, 241, 0.85);
+}
+
+/* Bundles */
+.bundles-section {
+    margin-top: 3rem;
+}
+
+.bundle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.bundle-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 1.25rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* Practical info */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin: 3rem 0 2rem;
+}
+
+.info-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.25rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* FAQ */
+.faq-section {
+    margin: 3rem 0 2rem;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.faq-grid details {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.25rem;
+    color: var(--light-color);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.faq-grid summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.faq-grid details[open] {
+    border-color: var(--primary-color);
+}
+
+.faq-grid p {
+    margin-top: 0.25rem;
 }
 
 /* Testimonials Section */
@@ -299,6 +453,39 @@ main {
 }
 .page-content h1 {
     margin-bottom: 1.5rem;
+}
+.page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+.page-lede {
+    max-width: 860px;
+    color: var(--light-color);
+}
+.pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.pill {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    color: var(--light-color);
+    font-weight: 600;
+    box-shadow: 0 4px 12px 0 rgba(0,0,0,0.15);
+}
+.section-heading {
+    margin: 2rem 0 1rem;
+}
+.section-heading h2 {
+    margin-bottom: 0.35rem;
+}
+.section-heading p {
+    color: rgba(236, 240, 241, 0.9);
 }
 
 /* About Page Specific Layout */
