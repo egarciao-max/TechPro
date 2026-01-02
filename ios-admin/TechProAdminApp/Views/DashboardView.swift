@@ -10,6 +10,7 @@ struct DashboardView: View {
                 Section("Repair Manager") {
                     ForEach(session.tickets) { ticket in
                         TicketRow(ticket: ticket)
+                            .listRowBackground(Color.black.opacity(0.7))
                     }
                 }
 
@@ -17,6 +18,7 @@ struct DashboardView: View {
                     ForEach(session.whitelist, id: \.self) { staff in
                         HStack {
                             Text(staff)
+                                .foregroundColor(.white)
                             Spacer()
                             Button(role: .destructive) {
                                 Task { await session.removeStaff(email: staff) }
@@ -25,6 +27,7 @@ struct DashboardView: View {
                             }
                             .disabled(session.whitelist.count <= 1)
                         }
+                        .listRowBackground(Color.black.opacity(0.7))
                     }
 
                     HStack {
@@ -40,6 +43,21 @@ struct DashboardView: View {
                         }
                         .disabled(newStaffEmail.isEmpty)
                     }
+                    .listRowBackground(Color.black.opacity(0.7))
+                }
+
+                Section("Inbox & Email Forwarding") {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Use the shared inbox to respond to customers and verify forwarding rules.")
+                            .foregroundColor(.white)
+                        Text("Forwarding target: info@techprokelowna.com")
+                            .font(.subheadline)
+                            .foregroundColor(.yellow)
+                        Link("Open Mail", destination: URL(string: "mailto:info@techprokelowna.com")!)
+                            .font(.headline)
+                    }
+                    .padding(.vertical, 4)
+                    .listRowBackground(Color.black.opacity(0.7))
                 }
             }
             .navigationTitle("Admin Dashboard")
@@ -60,6 +78,9 @@ struct DashboardView: View {
             .refreshable {
                 await session.refreshTickets()
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.black)
+            .tint(.yellow)
         }
     }
 }
@@ -72,6 +93,7 @@ private struct TicketRow: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(ticket.name)
                 .font(.headline)
+                .foregroundColor(.white)
             Text("ID: \(ticket.id)")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
